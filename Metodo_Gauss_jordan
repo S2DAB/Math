@@ -1,0 +1,63 @@
+## PROGRAMA PARA CALCULAR VALORES DE SISTEMAS DE ECUACIONES LINEALES POR METODO DE GAUSS JORDDN DE N*N DIMENSIONES
+##CESAR CUELLAR GUTIERREZ 
+
+clc;
+ clear all;
+ 
+ n= input('De que dimensiones se copone el sistema??: ')
+## SE RESERVA ESPACIO 
+M=zeros (n,n); Y =zeros(n,1) ;X=Y;
+## M es la matriz ; Y la columna de resultados
+
+##LECTURA DE LA MATRIZ
+disp ('Lectura de la matriz de coeficientes');
+for i=1:n
+  for j= 1:n
+    fprintf ('Ingrese el valor para M (%d,%d): ',i,j)
+    M(i,j)= input ('')
+  end
+end
+disp ('Lectura del vector columna Y');
+for i=1:n
+  fprintf ('Ingrse el valor para Y (%d) :',i)
+  Y (i) = input ('');
+end
+
+##SE FORMA LA MATRIZ AMPLIADA
+A =[M,Y];
+
+##ELIMINACION HACIA  ADELANTE
+for j=1: n-1
+##  Seleccionamos  el pivote mavor
+indiceF = j ;  ##Indice de la fila 
+for i=j+1:n
+  if (abs (A(i,j)) > abs (A(indiceF,j)) )
+   indiceF=i;
+  end
+  end
+##Aqui se ejecut un intercabio de ser necesario 
+if (j == indiceF)
+  vectorTemporal = A(j, :);
+  A(j,:) = A(indiceF, :);
+  A(indiceF,:) = vectorTemporal;
+  end
+  for i=j+1:n
+    A(i,:) = A(i,:)+A(j,:)*(-A(i,j)/A(j,j));
+  end
+  end
+
+
+
+##SUSTITUCION HACIA ATRAS
+    for i=n:-1:1
+      X(i) = A(i,n+1);
+    for j=i+1:n
+      X(i)= X(i)- X(j)*A(i,j);
+    endfor
+    X(i) = X(i)/ A(i,i);
+  endfor
+  
+  
+  disp ('Se ha encontrado el valor de las incognitas')
+  X
+  return
