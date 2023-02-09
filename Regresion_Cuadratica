@@ -1,0 +1,65 @@
+%REGRESIÓN CUADRÁTICA
+
+%Limpiar
+clc;
+clear all;
+
+fprintf('Regresión Cuadrática\n');
+
+
+%Leer dator archivo
+%cd(''); %Ubicación del archivo
+%arch= load(''); %Nombre del archivo
+%x= arch(:,1);
+%y= arch(:,2);
+%n= length(y);
+%fprintf('\n Datos: \n');
+%disp([x',y']);
+
+%Valores
+x= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+y= [5.24, 7.58, 11.44, 23.6, 36.6, 38.9, 66.9, 71.4, 95.4, 124.7];
+n= length(y);
+
+sumX= 0;
+sumX2= 0;
+sumX3= 0;
+sumX4= 0;
+sumY= 0;
+sumXY= 0;
+sumX2Y= 0;
+
+for i=1:n
+  sumX= sumX + x(i);
+  sumX2= sumX2 + (x(i))^2;
+  sumX3= sumX3 + (x(i))^3;
+  sumX4= sumX4 + (x(i))^4;
+  sumY= sumY + y(i);
+  sumXY= sumXY + (x(i)*y(i));
+  sumX2Y= sumX2Y + ((x(i)^2)*(y(i)));
+endfor
+
+fprintf('La matríz es: \n');
+M= [n sumX sumX2; sumX sumX2 sumX3; sumX2 sumX3 sumX4]
+fprintf('La matríz resultados es: \n');
+b= [sumY; sumXY; sumX2Y]
+fprintf('La matríz extendida es: \n');
+A= [M b]
+
+%Resolviendo matíz por Gauss-Jordan
+sol= rref(A);
+fprintf('Los resultados de la matríz son: \n');
+a0= sol(1,4)
+a1= sol(2,4)
+a2= sol(3,4)
+
+%Grafica puntos
+graphics_toolkit("gnuplot")
+hold on;
+plot(x,y,'b*');
+
+%Gráfica ajuste
+graphics_toolkit("gnuplot")
+hold on;
+ajuste= (a2*x.^2) + (a1*x) + (a0);
+plot(x, ajuste,'r','linewidth',1.5);
