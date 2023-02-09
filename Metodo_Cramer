@@ -1,0 +1,25 @@
+## PROGRAMA PARA CALCULAR VALORES DE SISTEMAS DE ECUACIONES LINEALES POR METODO DE CRAMER DE 3*3 
+##CESAR CUELLAR GUTIERREZ 
+
+clc;
+ clear all;
+  
+  
+ fprintf ('A continuacion se presenta un programa para matrices de 3*3 ')
+## SE RESERVA ESPACIO 
+M=[3,3]; Y =zeros(3,1) ;X=Y;
+## M es la matriz ; Y la columna de resultados
+
+##LECTURA DE LA MATRIZ
+disp ('Lectura de la matriz de coeficientes');
+for i=1:3
+  for j= 1:3
+    fprintf ('Ingrese el valor para M (%d,%d): ',i,j)
+    M(i,j)= input ('')
+  end
+end
+disp ('Lectura del vector columna Y');
+for i=1:3
+  fprintf ('Ingrse el valor para Y (%d) :',i)
+  Y (i) = input ('');
+end
